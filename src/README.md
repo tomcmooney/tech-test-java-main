@@ -1,5 +1,5 @@
 # tech-test-java-main
-tech-test-java-main contains a System Loco _LocoAware_ server that exposes two api endpoints that users to GET a list of devices sorted by last_reported_time in descending order or a device by id.
+tech-test-java-main contains a System Loco _LocoAware_ server that exposes two API endpoints that users to GET a list of devices sorted by last_reported_time in descending order or a device by id.
 
 ## Table of Contents
 - [Requirements](#requirements)
@@ -54,6 +54,6 @@ ngodb.net:27017 with max election id 7fffffff00000000000000db and max set versio
 ....
 ```
 
-The api can be viewed in the browser. Below is a screenshot of sending a GET rquest to the GetDevice endpoint.
+The API can be viewed in the browser. Below is a screenshot of sending a GET rquest to the GetDevice endpoint.
 
 ![alt text](../GetDevice.png)
