@@ -27,24 +27,23 @@ public class DevicesRepository {
 
         @Nullable
         public Collection<Result> invoke() {
-                Collection<Result> allDevices = new ArrayList<>();
                 final var criteria = Criteria
                                 .where("deactivated").is(false);
                 final var pipeline = Aggregation.newAggregation(
                                 Aggregation.match(criteria),
-                                Aggregation.limit(1),
+                                Aggregation.limit(Long.MAX_VALUE),
                                 Aggregation.lookup(
                                                 "profile",
                                                 "profileId",
                                                 "_id",
                                                 "profile"),
                                 Aggregation.unwind("profile", true));
-                var device = template
+                return template
                                 .aggregate(pipeline, "device", Result.class)
-                                .getUniqueMappedResult();
-                allDevices.add(device);
-                System.out.println("allDevices=" + allDevices);
-                return allDevices;
+                                .getMappedResults()
+                                .stream()
+                                .sorted((r1, r2) -> r2.lastReported().compareTo(r1.lastReported()))
+                                .toList();
         }
 
         public record Result(

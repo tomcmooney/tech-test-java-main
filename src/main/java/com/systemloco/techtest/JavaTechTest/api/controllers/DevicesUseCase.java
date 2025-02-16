@@ -34,8 +34,6 @@ public class DevicesUseCase {
                 var result = devices.stream()
                                 .map(Response::fromData)
                                 .toList();
-
-                System.out.println("result=" + result);
                 return result;
         }
 
