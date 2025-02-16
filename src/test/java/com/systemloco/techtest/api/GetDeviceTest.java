@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.is;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureDataMongo
 @ActiveProfiles("test")
-@DisplayName("GET /api/device/{deviceId}")
+@DisplayName("GET /api/devices/{deviceId}")
 public class GetDeviceTest {
         @LocalServerPort
         int port;

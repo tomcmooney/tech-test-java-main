@@ -1,6 +1,5 @@
 package com.systemloco.techtest.JavaTechTest.api.controllers;
 
-
 import com.systemloco.techtest.JavaTechTest.api.usecases.DeviceByIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -14,18 +13,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/device/{id}")
 public class DeviceController {
-    @NotNull private final DeviceByIdUseCase byId;
+        @NotNull
+        private final DeviceByIdUseCase byId;
 
-    @GetMapping
-    @ResponseBody
-    DeviceByIdUseCase.Response byId(
-            @PathVariable("id") @NotNull final String deviceId
-    ) {
-        final var device = byId.invoke(
-                deviceId
-        );
-        return Optional
-                .ofNullable(device)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+        @GetMapping
+        @ResponseBody
+        DeviceByIdUseCase.Response byId(
+                        @PathVariable("id") @NotNull final String deviceId) {
+                final var device = byId.invoke(
+                                deviceId);
+                return Optional
+                                .ofNullable(device)
+                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        }
 }

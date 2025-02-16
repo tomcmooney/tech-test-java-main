@@ -38,7 +38,7 @@ BUILD SUCCESSFUL in 3s
 7 actionable tasks: 7 up-to-date
 ```
 
-This command will run all the unit tests defined in the project. You can find the test results in build/test-results/test.
+This command will run all the unit tests defined in the project and tell you were you can find the failed test report.
 
 ## Run
 To run the server, you can execute:
