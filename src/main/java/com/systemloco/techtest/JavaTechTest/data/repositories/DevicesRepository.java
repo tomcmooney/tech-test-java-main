@@ -45,6 +45,26 @@ public class DevicesRepository {
                                 .toList();
         }
 
+        @Nullable
+        public Result invoke(
+                        @NotNull final String deviceId) {
+                final var criteria = Criteria
+                                .where("device").is(Long.valueOf(deviceId))
+                                .and("deactivated").is(false);
+                final var pipeline = Aggregation.newAggregation(
+                                Aggregation.match(criteria),
+                                Aggregation.limit(1),
+                                Aggregation.lookup(
+                                                "profile",
+                                                "profileId",
+                                                "_id",
+                                                "profile"),
+                                Aggregation.unwind("profile", true));
+                return template
+                                .aggregate(pipeline, "device", Result.class)
+                                .getUniqueMappedResult();
+        }
+
         public record Result(
                         @NotNull @Field("device") Long device,
                         @NotNull @Field("model") String model,

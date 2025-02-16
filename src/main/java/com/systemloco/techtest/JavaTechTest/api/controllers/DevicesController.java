@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.systemloco.techtest.JavaTechTest.api.services.DeviceByIdUseCase;
 import com.systemloco.techtest.JavaTechTest.api.services.DevicesService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,22 +19,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DevicesController {
     @NotNull
-    private final DevicesService allDevices;
-
-    @NotNull
-    private final DeviceByIdUseCase byId;
+    private final DevicesService service;
 
     @GetMapping("/api/devices")
     @ResponseBody
     Collection<DevicesService.Response> allDevices() {
-        return allDevices.invoke();
+        return service.invoke();
     }
 
     @GetMapping("/api/devices/{id}")
     @ResponseBody
-    DeviceByIdUseCase.Response byId(
+    DevicesService.Response byId(
             @PathVariable("id") @NotNull final String deviceId) {
-        final var device = byId.invoke(
+        final var device = service.invoke(
                 deviceId);
         return Optional
                 .ofNullable(device)

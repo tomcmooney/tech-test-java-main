@@ -28,16 +28,27 @@ import lombok.RequiredArgsConstructor;
 public class DevicesService {
 
         @NotNull
-        private final DevicesRepository allDevices;
+        private final DevicesRepository repository;
 
         @Nullable
         public Collection<Response> invoke() {
-                final var devices = allDevices.invoke();
+                final var devices = repository.invoke();
 
                 var result = devices.stream()
                                 .map(Response::fromData)
                                 .toList();
                 return result;
+        }
+
+        @Nullable
+        public Response invoke(
+                        @NotNull final String deviceId) {
+                final var device = repository.invoke(
+                                deviceId);
+                return Optional
+                                .ofNullable(device)
+                                .map(Response::fromData)
+                                .orElse(null);
         }
 
         @Builder(access = AccessLevel.PRIVATE)
