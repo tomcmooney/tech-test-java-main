@@ -31,22 +31,15 @@ public class DevicesService {
         private final DevicesRepository repository;
 
         @Nullable
-        public Collection<Response> invoke() {
-                final var devices = repository.invoke();
-
-                var result = devices.stream()
+        public Collection<Response> findAllActiveDevices() {
+                return repository.findAllActiveDevices()
                                 .map(Response::fromData)
                                 .toList();
-                return result;
         }
 
         @Nullable
-        public Response invoke(
-                        @NotNull final String deviceId) {
-                final var device = repository.invoke(
-                                deviceId);
-                return Optional
-                                .ofNullable(device)
+        public Response findActiveDeviceById(@NotNull final String deviceId) {
+                return Optional.ofNullable(repository.findActiveDeviceById(deviceId))
                                 .map(Response::fromData)
                                 .orElse(null);
         }

@@ -1,8 +1,8 @@
 package com.systemloco.techtest.JavaTechTest.data.repositories;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
@@ -25,10 +25,11 @@ public class DevicesRepository {
         private final MongoTemplate template;
 
         @Nullable
-        public Collection<Result> invoke() {
-                final var criteria = Criteria
+        public Stream<Result> findAllActiveDevices() {
+                var criteria = Criteria
                                 .where("deactivated").is(false);
-                final var pipeline = Aggregation.newAggregation(
+
+                var pipeline = Aggregation.newAggregation(
                                 Aggregation.match(criteria),
                                 Aggregation.limit(Long.MAX_VALUE),
                                 Aggregation.lookup(
@@ -37,20 +38,19 @@ public class DevicesRepository {
                                                 "_id",
                                                 "profile"),
                                 Aggregation.unwind("profile", true));
-                return template
-                                .aggregate(pipeline, "device", Result.class)
+
+                return template.aggregate(pipeline, "device", Result.class)
                                 .getMappedResults()
                                 .stream()
-                                .sorted((r1, r2) -> r2.lastReported().compareTo(r1.lastReported()))
-                                .toList();
+                                .sorted((r1, r2) -> r2.lastReported().compareTo(r1.lastReported()));
         }
 
         @Nullable
-        public Result invoke(
-                        @NotNull final String deviceId) {
+        public Result findActiveDeviceById(@NotNull final String deviceId) {
                 final var criteria = Criteria
                                 .where("device").is(Long.valueOf(deviceId))
                                 .and("deactivated").is(false);
+
                 final var pipeline = Aggregation.newAggregation(
                                 Aggregation.match(criteria),
                                 Aggregation.limit(1),
@@ -60,8 +60,8 @@ public class DevicesRepository {
                                                 "_id",
                                                 "profile"),
                                 Aggregation.unwind("profile", true));
-                return template
-                                .aggregate(pipeline, "device", Result.class)
+
+                return template.aggregate(pipeline, "device", Result.class)
                                 .getUniqueMappedResult();
         }
 
@@ -79,5 +79,4 @@ public class DevicesRepository {
                         @Nullable @Field("profile.name") String profileName,
                         @Nullable @Field("profile.description") String profileDescription) {
         }
-
 }

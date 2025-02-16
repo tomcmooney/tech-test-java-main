@@ -15,6 +15,8 @@ import com.systemloco.techtest.JavaTechTest.api.services.DevicesService;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.systemloco.techtest.JavaTechTest.api.services.DevicesService.Response;
+
 @RestController
 @RequiredArgsConstructor
 public class DevicesController {
@@ -23,16 +25,14 @@ public class DevicesController {
 
     @GetMapping("/api/devices")
     @ResponseBody
-    Collection<DevicesService.Response> allDevices() {
-        return service.invoke();
+    Collection<Response> findAllActiveDevices() {
+        return service.findAllActiveDevices();
     }
 
     @GetMapping("/api/devices/{id}")
     @ResponseBody
-    DevicesService.Response byId(
-            @PathVariable("id") @NotNull final String deviceId) {
-        final var device = service.invoke(
-                deviceId);
+    Response findActiveDeviceById(@PathVariable("id") @NotNull final String deviceId) {
+        var device = service.findActiveDeviceById(deviceId);
         return Optional
                 .ofNullable(device)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
