@@ -1,6 +1,5 @@
-package com.systemloco.techtest.JavaTechTest.api.controllers;
+package com.systemloco.techtest.JavaTechTest.data.repositories;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

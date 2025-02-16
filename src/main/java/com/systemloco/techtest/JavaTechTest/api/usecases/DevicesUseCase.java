@@ -1,4 +1,4 @@
-package com.systemloco.techtest.JavaTechTest.api.controllers;
+package com.systemloco.techtest.JavaTechTest.api.usecases;
 
 import java.util.Collection;
 import java.util.Date;
@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.systemloco.techtest.JavaTechTest.api.serialisers.Truncated;
 import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
 import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
+import com.systemloco.techtest.JavaTechTest.data.repositories.DevicesRepository;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
