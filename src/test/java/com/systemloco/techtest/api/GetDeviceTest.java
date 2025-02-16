@@ -100,7 +100,7 @@ public class GetDeviceTest {
         void whenDeviceExists_returnsOk_withDeviceDetails() {
                 RestAssured
                                 .given()
-                                .get("/api/device/72300000000000001")
+                                .get("/api/devices/72300000000000001")
                                 .then()
                                 .statusCode(200)
                                 .body(
@@ -133,7 +133,7 @@ public class GetDeviceTest {
         void whenDeviceIsDeactivated_returnsNotFound() {
                 RestAssured
                                 .given()
-                                .get("/api/device/72300000000000002")
+                                .get("/api/devices/72300000000000002")
                                 .then()
                                 .statusCode(404);
         }
@@ -142,7 +142,7 @@ public class GetDeviceTest {
         void whenDeviceDoesNotExist_returnsNotFound() {
                 RestAssured
                                 .given()
-                                .get("/api/device/72300000000000003")
+                                .get("/api/devices/72300000000000003")
                                 .then()
                                 .statusCode(404);
         }
