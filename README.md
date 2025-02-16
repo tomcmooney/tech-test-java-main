@@ -56,4 +56,4 @@ ngodb.net:27017 with max election id 7fffffff00000000000000db and max set versio
 
 The API can be viewed in the browser. Below is a screenshot of sending a GET rquest to the GetDevice endpoint.
 
-![alt text](../GetDevice.png)
+![alt text](GetDevice.png)
