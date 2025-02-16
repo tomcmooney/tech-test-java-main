@@ -1,39 +1,42 @@
-package com.systemloco.techtest.JavaTechTest.api.usecases;
+package com.systemloco.techtest.JavaTechTest.api.controllers;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import org.bson.types.ObjectId;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.systemloco.techtest.JavaTechTest.api.serialisers.Truncated;
 import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
 import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
-import com.systemloco.techtest.JavaTechTest.data.repositories.DeviceByIdRepository;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
-public class DeviceByIdUseCase {
+public class DevicesUseCase {
+
         @NotNull
-        private final DeviceByIdRepository byId;
+        private final DevicesRepository allDevices;
 
         @Nullable
-        public Response invoke(
-                        @NotNull final String deviceId) {
-                final var device = byId.invoke(
-                                deviceId);
-                return Optional
-                                .ofNullable(device)
+        public Collection<Response> invoke() {
+                final var devices = allDevices.invoke();
+
+                var result = devices.stream()
                                 .map(Response::fromData)
-                                .orElse(null);
+                                .toList();
+
+                System.out.println("result=" + result);
+                return result;
         }
 
         @Builder(access = AccessLevel.PRIVATE)
@@ -50,7 +53,7 @@ public class DeviceByIdUseCase {
                         @Nullable @JsonProperty("sensors") Sensors sensors) {
                 @NotNull
                 public static Response fromData(
-                                @NotNull final DeviceByIdRepository.Result data) {
+                                @NotNull final DevicesRepository.Result data) {
                         final var deviceId = data.device().toString();
                         return builder()
                                         .deviceId(deviceId)

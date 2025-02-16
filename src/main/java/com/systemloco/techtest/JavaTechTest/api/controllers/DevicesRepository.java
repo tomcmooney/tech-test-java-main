@@ -1,8 +1,10 @@
-package com.systemloco.techtest.JavaTechTest.data.repositories;
+package com.systemloco.techtest.JavaTechTest.api.controllers;
 
-import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
-import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,21 +14,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
+import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
+import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class DeviceByIdRepository {
+public class DevicesRepository {
         @NotNull
         private final MongoTemplate template;
 
         @Nullable
-        public Result invoke(
-                        @NotNull final String deviceId) {
+        public Collection<Result> invoke() {
+                Collection<Result> allDevices = new ArrayList<>();
                 final var criteria = Criteria
-                                .where("device").is(Long.valueOf(deviceId))
-                                .and("deactivated").is(false);
+                                .where("deactivated").is(false);
                 final var pipeline = Aggregation.newAggregation(
                                 Aggregation.match(criteria),
                                 Aggregation.limit(1),
@@ -36,9 +39,12 @@ public class DeviceByIdRepository {
                                                 "_id",
                                                 "profile"),
                                 Aggregation.unwind("profile", true));
-                return template
+                var device = template
                                 .aggregate(pipeline, "device", Result.class)
                                 .getUniqueMappedResult();
+                allDevices.add(device);
+                System.out.println("allDevices=" + allDevices);
+                return allDevices;
         }
 
         public record Result(
@@ -55,4 +61,5 @@ public class DeviceByIdRepository {
                         @Nullable @Field("profile.name") String profileName,
                         @Nullable @Field("profile.description") String profileDescription) {
         }
+
 }
