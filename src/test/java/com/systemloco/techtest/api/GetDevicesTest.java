@@ -8,7 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.blankString;
+import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureDataMongo
@@ -25,10 +26,11 @@ public class GetDevicesTest {
 
         @Test
         public void whenGetDevices_returnsOk_withEmptyDevicesList() {
-                RestAssured.given()
+                RestAssured
+                                .given()
                                 .get("/api/devices")
                                 .then()
                                 .statusCode(200)
-                                .body(empty());
+                                .body("$.", hasSize(0));
         }
 }
