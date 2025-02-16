@@ -1,22 +1,22 @@
 package com.systemloco.techtest.JavaTechTest.data.repositories;
 
-import java.util.Date;
-import java.util.List;
+import com.systemloco.techtest.JavaTechTest.data.models.*;
+
+import java.util.*;
 import java.util.stream.Stream;
 
+import lombok.RequiredArgsConstructor;
+
 import org.bson.types.ObjectId;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import org.jetbrains.annotations.*;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.query.Criteria;
+
 import org.springframework.stereotype.Component;
-
-import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
-import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
-
-import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

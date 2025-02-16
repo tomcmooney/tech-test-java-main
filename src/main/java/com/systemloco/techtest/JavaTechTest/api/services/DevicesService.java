@@ -1,27 +1,21 @@
 package com.systemloco.techtest.JavaTechTest.api.services;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Pattern;
-
-import org.bson.types.ObjectId;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import com.systemloco.techtest.JavaTechTest.api.serialisers.Truncated;
-import com.systemloco.techtest.JavaTechTest.data.models.LocationData;
-import com.systemloco.techtest.JavaTechTest.data.models.SensorData;
+import com.systemloco.techtest.JavaTechTest.data.models.*;
 import com.systemloco.techtest.JavaTechTest.data.repositories.DevicesRepository;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import java.util.*;
+import java.util.regex.Pattern;
+
+import lombok.*;
+
+import org.bson.types.ObjectId;
+
+import org.jetbrains.annotations.*;
+
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor

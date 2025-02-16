@@ -1,24 +1,26 @@
 package com.systemloco.techtest.api;
 
+import static org.hamcrest.Matchers.*;
+
 import com.systemloco.techtest.JavaTechTest.Application;
+
 import io.restassured.RestAssured;
+
+import java.sql.Date;
+import java.time.Instant;
+import java.util.*;
+
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 import org.junit.jupiter.api.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ActiveProfiles;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import java.sql.Date;
-import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureDataMongo
