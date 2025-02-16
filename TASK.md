@@ -15,7 +15,7 @@ This repository contains a template server application that connects to a MongoD
 
 You can see examples of some of our platform designs [here](https://www.figma.com/design/ZI9psxbvmVJrwUcJdMIgyT/Frontend-Design?node-id=0-1&t=xwIKlm0bTVKNzVer-1). 
 
-Once the server is running you’ll be able verify your connection and retrieve details of a single device by going to: [http://localhost:8080/api/device/72300000000000001](http://localhost:8080/api/device/123123)
+Once the server is running you’ll be able verify your connection and retrieve details of a single device by going to: [http://localhost:8080/api/devices/72300000000000001](http://localhost:8080/api/devices/123123)
 
 ## Notes
 
